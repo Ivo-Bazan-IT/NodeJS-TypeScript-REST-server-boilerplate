@@ -1,0 +1,5 @@
+user:
+ivanbazan12xd_db_user
+
+pass:
+QTMf3qLVn2aUCCdB
