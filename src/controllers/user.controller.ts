@@ -52,3 +52,17 @@ export const delUser = async (req: Request, res: Response): Promise<void> => {
   const user = await UserModel.findByIdAndDelete(id);
   res.json();
 };
+
+//PERMITIR QUE USER SE BORRE A SI MISMO
+export const delSelfUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const usuarioAuth = (req as any).usuarioAuth;
+  const user = await UserModel.findByIdAndUpdate(
+    usuarioAuth._id,
+    { estado: false },
+    { new: true }
+  );
+  res.json();
+};

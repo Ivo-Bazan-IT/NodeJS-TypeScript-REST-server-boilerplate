@@ -8,7 +8,10 @@ import {
   postUser,
   putUser,
   delUser,
+  delSelfUser,
 } from "../controllers/user.controller";
+
+//IMPORTS MIDDLEWARES
 import { validarCampos } from "../middlewares/validar-campos";
 import { validarJWT } from "../middlewares/validar-jwt";
 
@@ -41,6 +44,9 @@ router.put(
   ],
   putUser
 );
+
+//BORRAR CUENTA PROPIA
+router.delete("/self", validarJWT, delSelfUser);
 
 //BORRAR USER
 router.delete(
