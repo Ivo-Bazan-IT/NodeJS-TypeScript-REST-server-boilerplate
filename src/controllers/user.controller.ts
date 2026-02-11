@@ -14,7 +14,7 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
   const { name, email, password, rol } = req.body;
   const user = new UserModel({ name, email, password, rol });
 
-  //Encliptar la contraseña (hash)
+  //Encriptar la contraseña (hash)
 
   const salt = bcrypt.genSaltSync();
   user.password = bcrypt.hashSync(password, salt);
@@ -56,13 +56,13 @@ export const delUser = async (req: Request, res: Response): Promise<void> => {
 //PERMITIR QUE USER SE BORRE A SI MISMO
 export const delSelfUser = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   const usuarioAuth = (req as any).usuarioAuth;
   const user = await UserModel.findByIdAndUpdate(
     usuarioAuth._id,
     { estado: false },
-    { new: true }
+    { new: true },
   );
   res.json();
 };
