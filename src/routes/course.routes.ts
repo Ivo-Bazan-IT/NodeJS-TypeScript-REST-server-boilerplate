@@ -1,0 +1,39 @@
+//IMPORTS GENERALES
+import { Router } from "express";
+import { check } from "express-validator";
+
+//iMPORTS CONTROLLERS
+import {
+  getCourses,
+  postCourse,
+  putCourse,
+  deleteCourse,
+} from "../controllers/course.controller";
+
+//IMPORTS MIDDLEWARES
+import { validarCampos } from "../middlewares/validar-campos";
+import { validarJWT } from "../middlewares/validar-jwt";
+import { validarAdmin } from "../middlewares/validar-admin";
+
+const router = Router();
+
+//OBTENER COURSES
+router.get("/", getCourses);
+
+//CREAR COURSE
+router.post(
+  "/",
+  validarJWT, // Verificar que esté autenticado
+  validarAdmin, // Verificar que sea ADMIN
+  [check("title", "El título es obligatorio").not().isEmpty()],
+  validarCampos,
+  postCourse,
+);
+
+// PUT - Solo admins pueden actualizar
+router.put("/:id", validarJWT, validarAdmin, putCourse);
+
+// DELETE - Solo admins pueden eliminar
+router.delete("/:id", validarJWT, validarAdmin, deleteCourse);
+
+export default router;

@@ -44,3 +44,12 @@ export const putCourse = async (req: Request, res: Response) => {
 };
 
 //Delete course
+export const deleteCourse = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await CourseModel.findByIdAndDelete(id);
+    res.json({ msg: "Curso eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar el curso" });
+  }
+};

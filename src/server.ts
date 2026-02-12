@@ -3,6 +3,7 @@ import cors from "cors";
 import { dbConnection } from "./database/config";
 import userRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
+import courseRoutes from "./routes/course.routes";
 
 class Server {
   // 1. Declaración de propiedades con su tipo
@@ -47,6 +48,8 @@ class Server {
     this.app.use(this.apiPaths.auth, authRoutes);
     // Aquí definiremos las rutas de usuario
     this.app.use(this.apiPaths.users, userRoutes);
+    // Rutas de cursos
+    this.app.use(this.apiPaths.courses, courseRoutes);
 
     // Ruta de prueba
     this.app.get("/", (req, res) => {
