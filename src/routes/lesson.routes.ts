@@ -13,7 +13,7 @@ import {
 //IMPORT MIDDLEWARES
 import { validarAdmin } from "../middlewares/validar-admin";
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.get("/lessons", getLessons);
 router.post("/lessons", validarAdmin, postLesson);
